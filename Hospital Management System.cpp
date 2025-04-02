@@ -13,7 +13,7 @@ using namespace std;
 //B - Billing Information
 //Q - Quit
 
-void enterUsername () {
+void enterCredentials () {
     string username {"AnthonyQ"};
     string userUsername {};
 
@@ -27,10 +27,6 @@ void enterUsername () {
 
     } while (userUsername != username);
 
-    cout << "Proceed" << endl;
-}
-
-void enterPassword () {
     string password {"JiuJitsu"};
     string userPassword {};
 
@@ -42,14 +38,15 @@ void enterPassword () {
             cout << "\nInvalid Password - Try Again" << endl;
         }
     } while (userPassword != password);
+    cout << "\nAccess Granted" << endl;
 }
+
 
 int main () {
 
     cout << "<-------------Hospital Management System------------->" << endl;
 
-    enterUsername();
-    enterPassword();
+    enterCredentials();
 
     vector<string> patientNames {};
     char userInput;
@@ -68,16 +65,32 @@ int main () {
                 cin >> patientInput;
 
                 if (patientInput == 'D' || patientInput == 'd') {
-                    //Displaying patient information
+                    if (!patientNames.empty()) {
+                        cout << "Patient Names: " << endl;
+                        int counter {1};
+                        for (int i {0}; i < patientNames.size(); ++i) {
+                            cout << "Patient " << counter << ": " << patientNames.at(i) << endl;
+                            counter++;
+                        }
+                    }
+                    else 
+                        cout << "\nSorry, no data - Add Patients" << endl;
                 }
                 else if (patientInput == 'A' || patientInput == 'a') {
                     string patientName;
                     cout << "Enter the full name of the patient: ";
-                    std::getline(cin, patientName);
+                    cin.ignore();
+                    getline(cin, patientName);
                     patientNames.push_back(patientName);
                 }
                     
-            } while (patientInput != 'Q' && patientInput != 'q');
+            } while (patientInput != 'Q' || patientInput != 'q');
+        }
+
+        if (userInput == 'B' || userInput == 'b') {
+            //I - Invoices
+            char billingInput {};
+            
         }
 
     } while (userInput != 'Q' && userInput != 'q');
